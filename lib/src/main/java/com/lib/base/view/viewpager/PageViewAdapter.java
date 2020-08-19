@@ -40,7 +40,7 @@ public class PageViewAdapter<T, V extends View> extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         T t = list.get(position);
-        V v = vList.remove(0);
+        V v = vList.size() > 0 ? vList.remove(0) : null;
         return iPageViewAdapter.createView(t, position, v);
     }
 
