@@ -41,7 +41,9 @@ public class PageViewAdapter<T, V extends View> extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         T t = list.get(position);
         V v = vList.size() > 0 ? vList.remove(0) : null;
-        return iPageViewAdapter.createView(t, position, v);
+        V view = iPageViewAdapter.createView(t, position, v);
+        container.addView(view);
+        return view;
     }
 
     @Override
