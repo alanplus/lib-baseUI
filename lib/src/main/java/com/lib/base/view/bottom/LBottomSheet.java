@@ -41,7 +41,7 @@ public class LBottomSheet extends Dialog {
         getWindow().getDecorView().setPadding(0, 0, 0, 0);
         // 在底部，宽度撑满
         WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.gravity = Gravity.BOTTOM | Gravity.CENTER;
 
         int[] screenSize = LTools.getScreenSize(getContext());
