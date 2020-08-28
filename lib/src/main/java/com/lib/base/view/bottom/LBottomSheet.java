@@ -98,7 +98,7 @@ public class LBottomSheet extends Dialog {
         set.addAnimation(alpha);
         set.setInterpolator(new DecelerateInterpolator());
         set.setDuration(mAnimationDuration);
-//        set.setFillAfter(true);
+        set.setFillAfter(true);
         mContentView.startAnimation(set);
     }
 
@@ -119,7 +119,7 @@ public class LBottomSheet extends Dialog {
         set.addAnimation(alpha);
         set.setInterpolator(new DecelerateInterpolator());
         set.setDuration(mAnimationDuration);
-//        set.setFillAfter(fa);
+        set.setFillAfter(true);
         set.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
