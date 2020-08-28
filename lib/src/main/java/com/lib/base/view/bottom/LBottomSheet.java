@@ -2,13 +2,16 @@ package com.lib.base.view.bottom;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -100,7 +103,7 @@ public class LBottomSheet extends Dialog {
         set.setDuration(mAnimationDuration);
         set.setFillAfter(true);
         mContentView.startAnimation(set);
-        Log.d("lui_base"," show onAnimationStart");
+        Log.d("lui_base", " show onAnimationStart");
     }
 
     /**
@@ -125,13 +128,13 @@ public class LBottomSheet extends Dialog {
             @Override
             public void onAnimationStart(Animation animation) {
                 mIsAnimating = true;
-                Log.d("lui_base"," dismiss onAnimationStart");
+                Log.d("lui_base", " dismiss onAnimationStart");
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 mIsAnimating = false;
-                Log.d("lui_base","dismiss onAnimationEnd");
+                Log.d("lui_base", "dismiss onAnimationEnd");
                 /**
                  * Bugfix： Attempting to destroy the window while drawing!
                  */
@@ -164,12 +167,20 @@ public class LBottomSheet extends Dialog {
     public void show(int maxHeight) {
         super.show();
         mContentView.setVisibility(View.INVISIBLE);
-        mContentView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            int height = mContentView.getHeight();
-            if (height > maxHeight) {
-                mContentView.getLayoutParams().height = maxHeight;
+        mContentView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    mContentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    mContentView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+                int height = mContentView.getHeight();
+                if (height > maxHeight) {
+                    mContentView.getLayoutParams().height = maxHeight;
+                }
+                animateUp();
             }
-            animateUp();
         });
 
         if (mOnBottomSheetShowListener != null) {
