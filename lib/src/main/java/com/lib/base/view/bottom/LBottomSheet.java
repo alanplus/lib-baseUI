@@ -157,6 +157,22 @@ public class LBottomSheet extends Dialog {
         }
     }
 
+    public void show(int maxHeight) {
+        super.show();
+        mContentView.setVisibility(View.INVISIBLE);
+        mContentView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            int height = mContentView.getHeight();
+            if (height > maxHeight) {
+                mContentView.getLayoutParams().height = maxHeight;
+            }
+            animateUp();
+        });
+
+        if (mOnBottomSheetShowListener != null) {
+            mOnBottomSheetShowListener.onShow();
+        }
+    }
+
     @Override
     public void dismiss() {
         if (mIsAnimating) {
