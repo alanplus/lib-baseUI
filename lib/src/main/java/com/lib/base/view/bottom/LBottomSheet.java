@@ -100,6 +100,7 @@ public class LBottomSheet extends Dialog {
         set.setDuration(mAnimationDuration);
         set.setFillAfter(true);
         mContentView.startAnimation(set);
+        Log.d("lui_base"," show onAnimationStart");
     }
 
     /**
@@ -124,11 +125,13 @@ public class LBottomSheet extends Dialog {
             @Override
             public void onAnimationStart(Animation animation) {
                 mIsAnimating = true;
+                Log.d("lui_base"," dismiss onAnimationStart");
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
                 mIsAnimating = false;
+                Log.d("lui_base","dismiss onAnimationEnd");
                 /**
                  * Bugfix： Attempting to destroy the window while drawing!
                  */
