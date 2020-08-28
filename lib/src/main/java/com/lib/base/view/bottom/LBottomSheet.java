@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -97,7 +98,7 @@ public class LBottomSheet extends Dialog {
         set.addAnimation(alpha);
         set.setInterpolator(new DecelerateInterpolator());
         set.setDuration(mAnimationDuration);
-        set.setFillAfter(true);
+//        set.setFillAfter(true);
         mContentView.startAnimation(set);
     }
 
@@ -118,7 +119,7 @@ public class LBottomSheet extends Dialog {
         set.addAnimation(alpha);
         set.setInterpolator(new DecelerateInterpolator());
         set.setDuration(mAnimationDuration);
-        set.setFillAfter(true);
+//        set.setFillAfter(fa);
         set.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -135,7 +136,7 @@ public class LBottomSheet extends Dialog {
                     try {
                         LBottomSheet.super.dismiss();
                     } catch (Exception e) {
-
+                        Log.e("error", Log.getStackTraceString(e));
                     }
                 });
             }
